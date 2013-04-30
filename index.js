@@ -31,13 +31,8 @@ $.ajax(url + "guessing_games")
 function afterAjax(){
 
 
-  var data = {'url': 'http://www.untiredwithloving.org/palm_tree_2.jpg'};
-// var plantList = { 
-//   "list": [
-//     {'name':'palm', 'scientific':'yo_motha', 'image':'http://www.untiredwithloving.org/palm_tree_2.jpg', 'hint1': 'palm', 'hint2': 'its a palm', 'hint3': 'just type palm'},
-//     {'name':'rose', 'scientific':'Rosa_berberifolia', "image":"http://www.nasa.gov/centers/goddard/images/content/174100main_planet_plants_lg.jpg",'hint1': 'rose', 'hint2': 'titanic', 'hint3': 'iceberg'},
-//     {'name':'cactus', 'scientific':'yodog', "image":"http://www.nasa.gov/centers/goddard/images/content/174100main_planet_plants_lg.jpg",'hint1': 'cactus jack', 'hint2': 'its a cact', 'hint3': 'just type cact'}
-//     ]}
+var data = {'url': 'http://www.untiredwithloving.org/palm_tree_2.jpg'};
+
 
 // $("#gameModal").append('<div class="span3"><img src="'+data.url+'">')
 $("#plantList").empty();
@@ -46,10 +41,11 @@ var plantArray = plantList.list;
 var score = 0;
 
 
-//exchange ' ' with '_' for scientificname
-for (i=0;i<plantArray.length;i++){
-    plantArray[i].scientific = plantArray[i].scientific.replace(' ','_');
-
+//edit scientificname for modale use
+  for (i=0;i<plantArray.length;i++){
+      plantArray[i].scientific = plantArray[i].scientific.replace(/\ /g,'_');
+      plantArray[i].scientific = plantArray[i].scientific.replace(/\'/g,'');
+}
 
 
 for(var i=0; i<plantArray.length; i++) {
@@ -101,7 +97,8 @@ for(var i=0; i<plantArray.length; i++){
     for(var i=0;i<plantArray.length;i++){
       if(btn ===""+plantArray[i].scientific+"h1"){
         $(this).attr('value', plantArray[i].hint1);
-        score = score-25; 
+        score = score-25;
+        $("#score").html('Total Points: '+score+'');
       }
 
     }
@@ -112,7 +109,8 @@ for(var i=0; i<plantArray.length; i++){
     for(var i=0;i<plantArray.length;i++){
       if(btn ===""+plantArray[i].scientific+"h2"){
         $(this).attr('value', plantArray[i].hint2);
-        score = score-25; 
+        score = score-25;
+        $("#score").html('Total Points: '+score+'');
       }
 
     }
@@ -123,7 +121,8 @@ for(var i=0; i<plantArray.length; i++){
     for(var i=0;i<plantArray.length;i++){
       if(btn ===""+plantArray[i].scientific+"h3"){
         $(this).attr('value', plantArray[i].hint3);
-        score = score-25; 
+        score = score-25;
+        $("#score").html('Total Points: '+score+'');
       }
 
     }
@@ -155,6 +154,4 @@ $("#"+plantArray[i].scientific+"submit").click(function(){
 });
 }
 
-
-
-}
+}//end afterAjax
